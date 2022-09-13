@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>QuizJavaNew</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Quiz</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/questions}">List of questions</a>
+            </li>
+        </ul>
+        <form th:action="@{/questions}" method="get" class="form-inline my-2 my-lg-0 float-right">
+            <input class="form-control mr-sm-2" id="txtSearch" type="text" name="topic" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <h1>List of Questions</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <a th:href="@{/questions/new}" class="btn btn-primary btn-sm mb-3"style="background-color: #b391e0;">Add question</a>
+        </div>
+    </div>
+    <table class="table table-light table-bordered"style="background-color: #eaf1f5;">
+        <thead class="table-warning">
+<tr>
+    <th class="text-center"> Topic </th>
+    <th class="text-center"> Rank </th>
+    <th class="text-center"> Question </th>
+    <th class="text-center"> Answer A </th>
+    <th class="text-center"> Answer B </th>
+    <th class="text-center"> Answer C </th>
+    <th class="text-center"> Actions </th>
+</tr>
+        </thead>
+<tbody>
+<tr th:each = "question: ${questions}">
+    <td th:text="${question.topic}"></td>
+    <td th:text="${question.rank}"></td>
+    <td th:text="${question.title}"></td>
+    <td th:text="${question.answerA}"></td>
+    <td th:text="${question.answerB}"></td>
+    <td th:text="${question.answerC}"></td>
+    <td>
+        <a th:href="@{/questions/edit/{id}(id=${question.id})}"
+        class="btn btn-success btn-sm"style="background-color: #92d962;" >Update</a>
+        <a th:href="@{/questions/{id}(id=${question.id})}"
+           class="btn btn-danger btn-sm"style="background-color: #f67e7e;">Delete</a>
+    </td>
+</tr>
+</tbody>
+    </table>
+</div>
+</body>
+</html>
